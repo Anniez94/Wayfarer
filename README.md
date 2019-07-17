@@ -26,14 +26,14 @@ https://wayfarer-booking-chiedu.herokuapp.com/api-doc/
 <hr>
 <h3>Installation</h3>
 Clone this repository into your local machine:
-e.g git clone https://github.com/Anniez94/wayfarer
+<p>e.g git clone https://github.com/Anniez94/wayfarer</p>
 <hr>
-<h3>Install dependencies</h3>
-e.g npm install.
+<h4>Install dependencies</h4>
+<p>e.g npm install.</p>
 <hr>
-<h3>Start the application by running the start script.</h3>
-e.g npm start
+<h4>Start the application by running the start script.</h4>
+<p>e.g npm start</p>
 <hr>
-<h3>Install postman to test all endpoints on port 3000.</h3>
+<h4>Install postman to test all endpoints on port 5000.</h4>
 Run Test
-e.g npm test
+<p>e.g npm test</p>
