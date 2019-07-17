@@ -39,7 +39,7 @@
     "exec-db-dev": "npm run dev-migration",
     "dev-migration": " babel-node ./server/models/db/migrations.js",
     "migration": "node ./dist/models/db/migrations.js",
-    "start:dev": "nodemon --exec babel-node server/app.js",
+    "start:dev": "npm run exec-db-dev nodemon --exec babel-node server/app.js",
     "clean": "rm -rf dist && mkdir dist",
     "exec-db-production": "npm run clean && npm run build &&  npm run migration ",
     "heroku-postbuild": " npm run build "
