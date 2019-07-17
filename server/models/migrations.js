@@ -10,9 +10,9 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
           is_admin BOOLEAN NOT NULL DEFAULT false
         );
         INSERT INTO users (
-            email, first_name, last_name, password, is_admin
+             first_name, last_name, email, password, is_admin
           ) VALUES
-          ('Chiedu', 'Ken', '1234567','anne94@gmail.com', true);
+          ('Chiedu', 'Ken', 'anne94@gmail.com','1234567', true);
 
     DROP TABLE IF EXISTS bus CASCADE;
         CREATE TABLE bus(
