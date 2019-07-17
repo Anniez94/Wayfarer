@@ -1,7 +1,6 @@
 import pool from "../config/database";
 
 pool.query(`DROP TABLE IF EXISTS users CASCADE;
-    // CREATE A USER TABLE
         CREATE TABLE users(
           id serial PRIMARY KEY NOT NULL,
           first_name VARCHAR(50) NOT NULL,
@@ -13,9 +12,8 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
         INSERT INTO users (
             email, first_name, last_name, password, is_admin
           ) VALUES
-          ('Chiedu', 'Ken', '$2a$10$m/YlY44W8WS4jSPG1/R3pua1pe7CrvzVq7FsjSQtkYHqxitusW2lS','anne94@gmail.com', true);
+          ('Chiedu', 'Ken', '1234567','anne94@gmail.com', true);
 
-    // CREATE A BUS TABLE
     DROP TABLE IF EXISTS bus CASCADE;
         CREATE TABLE bus(
           id serial PRIMARY KEY,
@@ -26,7 +24,6 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
           capacity INT NOT NULL
         );
 
-    // CREATE A BOOKING TABLE
     DROP TABLE IF EXISTS booking CASCADE;
         CREATE TABLE booking(
           id serial PRIMARY KEY,
@@ -37,7 +34,6 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
           FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         );
 
-    // CREATE A TRIP TABLE
     DROP TABLE IF EXISTS trip CASCADE;
     DROP TYPE IF EXISTS status_code CASCADE;
     CREATE TYPE status_code AS ENUM ('active','cancelled');
@@ -56,6 +52,6 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
     pool.end();
 });
 
-module.exports = createTables;
+module.exports = pool;
 
 require('make-runnable');
