@@ -484,6 +484,6 @@
       "https",
       "http"
     ],
-    "host":"https://wayfarer-bus-booking.herokuapp.com",
+    "host":"https://wayfarer-booking-chiedu.herokuapp.com/",
     "basePath": "/api"
   }

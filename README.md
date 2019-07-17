@@ -1,11 +1,11 @@
 <h2>WayFarer is a public bus transportation booking server. Required to develop the back-end API.</h2>
 
 <h3>Server side hosted on Heroku</h3>
-https://wayfarer-bus-booking.herokuapp.com/
+https://wayfarer-booking-chiedu.herokuapp.com/
 <hr>
 
 <h3>API documentation</h3>
-https://wayfarer-bus-booking.herokuapp.com/api-doc/
+https://wayfarer-booking-chiedu.herokuapp.com/api-doc/
 <hr>
 
 <h4>Here's are the available features:</h4>
