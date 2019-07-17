@@ -44,8 +44,7 @@
     "heroku-postbuild": "npm run clean && npm run build && npm run migration"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Anniez94/Wayfarer.git"
+    "type": "git"
   },
   "keywords": [],
   "author": "Chiedu Mokwunye",
