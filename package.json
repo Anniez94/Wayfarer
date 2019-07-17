@@ -40,7 +40,6 @@
     "dev-migration": " babel-node ./server/models/db/migrations.js",
     "migration": "node ./dist/models/db/migrations.js",
     "start:dev": "nodemon --exec babel-node server/app.js",
-    "create": "babel-node ./server/models/createTable.js createTables",
     "clean": "rm -rf dist && mkdir dist",
     "heroku-postbuild": "npm run clean && npm run build && npm run migration"
   },
