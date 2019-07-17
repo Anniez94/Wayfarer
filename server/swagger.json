@@ -1,0 +1,489 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "WayFarer is a public bus transportation booking server",
+        "version": "1.0.0",
+        "title": "Wayfarer API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "paths": {
+      "/auth/signup": {
+        "post": {
+          "tags": [
+            "auth"
+          ],
+          "summary": "Register user",
+          "description": "New users have access to this route",
+          "operationId": "createAUser",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Auth"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "User exist already, use a different email"
+            }
+          }
+        }
+      },
+      "/auth/signin": {
+        "post": {
+          "tags": [
+            "auth"
+          ],
+          "summary": "Login user",
+          "description": "Login of old users .",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "email, password",
+              "description": "Logged in user object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Signin"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "User does not exist"
+            }
+          }
+        }
+      },
+      "/trips": {
+        "post": {
+          "tags": [
+            "trips"
+          ],
+          "summary": "Only admin can create a new trip",
+          "description": "Admin create a new trip for passengers.",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "A new trip object",
+              "required": true
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        },
+        "get": {
+          "tags": [
+            "trips"
+          ],
+          "summary": "Users filter trips by origin or destination",
+          "description": "User can get all trips by filter.",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "origin",
+              "in": "query",
+              "description": "origin of specified trip",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "destination",
+              "in": "query",
+              "description": "destination of specified trip",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        }
+      },
+      "/trips/": {
+        "get": {
+          "tags": [
+            "trips"
+          ],
+          "summary": "Users and Admin can get all trips",
+          "description": "Returns all trips",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "trip_id",
+              "in": "path",
+              "description": "trips id",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid Id requested"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        },
+        "patch": {
+          "tags": [
+            "trips"
+          ],
+          "summary": "Only Admin can cancel a trip by ID",
+          "description": "Returns a single cancelled trip",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "trip_id",
+              "in": "path",
+              "description": "ID of trip to cancel",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid ID requested"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        }
+      },
+      "/buses": {
+        "post": {
+          "tags": [
+            "buses"
+          ],
+          "summary": "Only Admin can register a new bus",
+          "description": "Only Admin can register a new bus.",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "A new trip object",
+              "required": true
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        },
+        "get": {
+          "tags": [
+            "buses"
+          ],
+          "summary": "Users and Admin can get all buses",
+          "description": "User can get all buses.",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        }
+      },
+      "/buses/{bus_id}": {
+        "get": {
+          "tags": [
+            "buses"
+          ],
+          "summary": "User and Admin can find bus by ID",
+          "description": "Returns a single bus",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "bus_id",
+              "in": "path",
+              "description": "ID of bus to return",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "Invalid ID requested"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        }
+      },
+      "/bookings": {
+        "post": {
+          "tags": [
+            "bookings"
+          ],
+          "summary": "Users can Make a booking",
+          "description": "Users can make booking.",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "A new trip object",
+              "required": true
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        },
+        "get": {
+          "tags": [
+            "bookings"
+          ],
+          "summary": "Users can get only their booking while Admin can get all bookings",
+          "description": "User can make request to get his/her bookings.",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        }
+      },
+      "/bookings/{booking_id}": {
+        "delete": {
+          "tags": [
+            "bookings"
+          ],
+          "summary": "Users can delete their booking",
+          "description": "User can delete his/her booking.",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "booking_id",
+              "in": "path",
+              "description": "ID of booking to delete",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ]
+        }
+      }
+    },
+    "securityDefinitions": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "definitions": {
+      "Booking": {
+        "type": "object",
+        "properties": {
+          "trip_id": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          },
+          "created_on": {
+            "type": "date"
+          }
+        },
+        "xml": {
+          "name": "Category"
+        }
+      },
+      "Auth": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "Auth"
+        }
+      },
+      "Signin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "Auth"
+        }
+      },
+      "Trip": {
+        "type": "object",
+        "properties": {
+          "bus_id": {
+            "type": "integer"
+          },
+          "fare": {
+            "type": "float"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "trip_date": {
+            "type": "date"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "Trip"
+        }
+      },
+      "Bus": {
+        "type": "object",
+        "properties": {
+          "number_plate": {
+            "type": "string"
+          },
+          "manufacturer": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "year": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "integer"
+          }
+        },
+        "xml": {
+          "name": "Bus"
+        }
+      }
+    },
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "host":"https://wayfarer-bus-booking.herokuapp.com",
+    "basePath": "/api"
+  }

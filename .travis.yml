@@ -1,0 +1,14 @@
+language: node_js
+node_js: 
+  - 10.15.3
+  services:
+  - postgresql
+before_script:
+  - psql -c 'DROP DATABASE IF EXISTS wayfarer;' -U postgres
+  - psql -c 'create database wayfarer;' -U postgres
+env:
+  - SECRETKEY= 'secretjwtkey'  
+script:
+  - npm start
+after_success:
+  - nyc report --reporter=text-lcov | coveralls

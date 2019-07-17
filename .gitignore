@@ -1,0 +1,13 @@
+# dotenv environment variables file
+.env
+
+# Dependency directories
+node_modules
+
+#test
+trips.js
+
+# Coverage directory 
+coverage
+
+.nyc_output
