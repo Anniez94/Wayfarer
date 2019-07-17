@@ -9,6 +9,5 @@ trips.js
 
 # Coverage directory 
 coverage
-migration.js
 
 .nyc_output

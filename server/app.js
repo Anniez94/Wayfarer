@@ -39,12 +39,12 @@ app.get('/', (req, res) => {
   });
 
 //  Handle invalid route 
-app.use((req, res) => {
-        res.status(404).json({
-          status: 404,
-          error: 'Wrong request. Route does not exist',
-        });
-});
+// app.use((req, res) => {
+//         res.status(404).json({
+//           status: 404,
+//           error: 'Wrong request. Route does not exist',
+//         });
+// });
 
 const server = http.createServer(app);
 
