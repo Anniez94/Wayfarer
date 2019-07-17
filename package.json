@@ -41,7 +41,8 @@
     "migration": "node ./dist/models/db/migrations.js",
     "start:dev": "nodemon --exec babel-node server/app.js",
     "clean": "rm -rf dist && mkdir dist",
-    "heroku-postbuild": "npm run clean && npm run build && npm run migration"
+    "exec-db-production": "npm run clean && npm run build &&  npm run migration ",
+    "heroku-postbuild": " npm run build "
   },
   "repository": {
     "type": "git"
