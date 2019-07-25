@@ -5,6 +5,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 const secretkey = process.env.secretkey;
 
+exports.getSignup = (req, res, next) => {
+    res.status(200).json({
+        data: "Welcome to the signup page"
+    });
+};
+
 // Register a user
 exports.postUser = (req, res, next) => {
     let { first_name, last_name, email, password, confirmPassword, adminCode, is_admin } = req.body;
