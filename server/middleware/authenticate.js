@@ -13,7 +13,7 @@ const secretkey = process.env.secretkey;
 
 exports.authenticate = (req, res, next) => {
     // Get auth header value
-    const token = req.header("Authorization") || req.headers["Authorization"];
+    const token = req.header("Authorization") || req.headers["Authorization"] || req.body.token;
     if (!token) {
         res.json({
             status: "false",

@@ -1,7 +1,4 @@
 import client from "../config/database";
-import dotenv from 'dotenv';
-
-dotenv.config();
 let decoded;
 
 // Register Bus
@@ -51,7 +48,7 @@ exports.postBus = (req, res, next) => {
 
 // Get all buses
 exports.getAllBuses = (req, res, next) => {
-    decoded = req.userData || process.env.adminPassword;
+    decoded = req.userData;
     client.query('SELECT is_admin FROM users WHERE id=$1', [decoded.data.userId], (err, result) => {
         if (result.rows[0].is_admin === false)
             return res.status(404).json({

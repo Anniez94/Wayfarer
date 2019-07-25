@@ -12,7 +12,7 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
         INSERT INTO users (
              first_name, last_name, email, password, is_admin
           ) VALUES
-          ('Chiedu', 'Ken', 'anne94@gmail.com','1234567', true);
+          ('Chiedu', 'Ken', 'anne94@gmail.com','12345678', true);
 
     DROP TABLE IF EXISTS bus CASCADE;
         CREATE TABLE bus(
@@ -52,6 +52,6 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
     pool.end();
 });
 
-module.exports = pool;
+export default pool;
 
-require('make-runnable');
+// require('make-runnable');
