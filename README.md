@@ -25,6 +25,72 @@ https://wayfarer-booking-chiedu.herokuapp.com/api-doc/
 <hr>
 
 <h3> API End Points</h3>
+<table>
+<thead>
+<tr>
+<th>HTTP VERB</th>
+<th>END POINT</th>
+<th>FUNCTIONALITY</th>
+</tr>
+</thead>
+<tr>
+<td>POST</td>
+<td>/api/user/signup</td>
+<td>Users signup</td>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>/api/auth/signin</td>
+<td>Users signin</td>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>/api/trip</td>
+<td>Admin creates Trip</td>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>/api/bus</td>
+<td>Admin creates Bus</td>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>/api/booking</td>
+<td>User books a seat on a trip</td>
+</tr>
+
+<tr>
+<td>GET</td>
+<td>/api/user/signup</td>
+<td>Get signup page</td>
+</tr>
+
+<tr>
+<td>GET</td>
+<td>/api/trip</td>
+<td>View all trips</td>
+</tr>
+
+<tr>
+<td>GET</td>
+<td>/api/booking</td>
+<td>View all bookings</td>
+</tr>
+
+<tr>
+<td>GET</td>
+<td>/api/bus</td>
+<td>View all buses</td>
+</tr>
+
+<tbody>
+</tbody>
+
+</table>
 <p>https://wayfarer-booking-chiedu.herokuapp.com</p>
 
 <h3>Installation</h3>
