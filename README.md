@@ -87,6 +87,18 @@ https://wayfarer-booking-chiedu.herokuapp.com/api-doc/
 <td>View all buses</td>
 </tr>
 
+<tr>
+<td>PATCH</td>
+<td>/api/trip/:id</td>
+<td>Cancel a Trip</td>
+</tr>
+
+<tr>
+<td>PATCH</td>
+<td>/api/booking/:id</td>
+<td>Delete a booking</td>
+</tr>
+
 <tbody>
 </tbody>
 
