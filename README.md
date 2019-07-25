@@ -22,8 +22,11 @@ https://wayfarer-booking-chiedu.herokuapp.com/api-doc/
 <li> User can get and filter trips using trip origin.</li>
 <li> User can change seats after booking.</li>
 </ul>
-
 <hr>
+
+<h3> API End Points</h3>
+<p>https://wayfarer-booking-chiedu.herokuapp.com</p>
+
 <h3>Installation</h3>
 Clone this repository into your local machine:
 <p>e.g git clone https://github.com/Anniez94/wayfarer</p>
