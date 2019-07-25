@@ -34,12 +34,12 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --require @babel/register --recursive ./server/test --exit ",
     "build": "babel server --out-dir dist --copy-files ",
-    "start:dev": "node dist/app.js",
+    "start": "node dist/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "exec-db-dev": "npm run dev-migration",
     "dev-migration": " babel-node ./server/models/migrations.js",
     "migration": "node ./dist/models/migrations.js",
-    "start": "npm run exec-db-dev nodemon --exec babel-node server/app.js",
+    "start:dev": "npm run exec-db-dev nodemon --exec babel-node server/app.js",
     "clean": "rm -rf dist && mkdir dist",
     "exec-db-production": "npm run clean && npm run build &&  npm run migration ",
     "heroku-postbuild": " npm run build "
