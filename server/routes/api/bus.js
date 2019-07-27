@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
+import {postBus, getAllBuses} from "../../controller/busController";
+import {authenticate} from "../../middleware/authenticate";
 const route = express.Router();
-const {postBus, getAllBuses} = require("../../controller/busController");
-const {authenticate} = require("../../middleware/authenticate");
 
 route.post("/", authenticate, postBus);
 route.get("/", authenticate, getAllBuses);

@@ -10,20 +10,25 @@ exports.postLogin = (req, res, next) => {
     const { email, password } = req.body
     if (!email || !password)
         return res.status(400).json({
-            status: 400,
-            error: "Bad request",
-            msg: "All fields are required"
+            status: "failed",
+            data: {
+                error: "Bad request",
+                message: "All fields are required"
+            }
         });
     client.query("SELECT * FROM users WHERE email = $1", [email], (error, result) => {
         if (error)
             return res.status(400).json({
-                status: 400,
+                status: "failed",
                 message: error,
             });
-        if (result.rows < '1')
-            return res.status(401).json({
-                status: 401,
-                message: 'User not found on server',
+         if (result.rows < '1')
+            return res.status(400).json({
+                status: 'failed',
+                data: {
+                    message: 'User not found on server'
+                }
+               
             });
         const userEmail = result.rows[0].email;
         const userId = result.rows[0].id;
@@ -33,7 +38,9 @@ exports.postLogin = (req, res, next) => {
                 if (!match)
                     return res.status(400).json({
                         status: "failed",
-                        data: "Invalid Password"
+                        data: {
+                            message: "Invalid Password"
+                        }
                     })
                 const data = {
                     userEmail,
@@ -41,10 +48,11 @@ exports.postLogin = (req, res, next) => {
                 };
                 jwt.sign({ data }, secretkey, (err, token) => {
                     res.status(200).json({
-                        status: 200,
-                        data: [{
-                            message: 'user logged in sucessfully'
-                        }]
+                        status: 'success',
+                        data: {
+                            message: 'user logged in sucessfully',
+                            token
+                        }
                     });
                 });
             });

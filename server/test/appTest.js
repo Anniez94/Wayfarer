@@ -12,12 +12,11 @@ describe('App', () => {
         chai
             .request(app)
             .get('/')
-            .then(res => {
+            .end((err, res) => {
                 expect(res.status).to.be.equal(200);
                 expect(res.body).to.be.a('object');
                 done();
-            }).catch(err => done(err));
-
+            });
     });
 });
 
@@ -26,12 +25,11 @@ describe('Page Not Found', () => {
         chai
             .request(app)
             .get('/wrong_page.html')
-            .then(res => {
+            .end((err, res) => {
                 expect(res.status).to.be.equal(404);
                 expect(res.body).to.be.a('object');
                 expect(res.body).to.have.property('error');
                 done();
-              })
-              .catch(err => done(err));
+            });
     });
 });

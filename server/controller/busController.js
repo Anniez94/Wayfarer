@@ -30,15 +30,20 @@ exports.postBus = (req, res, next) => {
                     year,
                     capacity
                 ]
-                client.query("INSERT INTO buses(number_plate, manufacturer, model, year, capacity) VALUES($1, $2, $3, $4, $5)", bus, (error, result) => {
+                client.query("INSERT INTO buses(number_plate, manufacturer, model, year, capacity) VALUES($1, $2, $3, $4, $5) RETURNING *", bus, (error, result) => {
                     if (error)
                         return res.status(400).json({
                             status: false,
                             data: 'there are some error with query',
                         });
-                    res.json({
+                    res.status(200).json({
                         status: "success",
-                        data: result.rows[0]
+                        data: {
+                            message: "Bus registered" ,
+                            id: result.rows[0].id,
+                           number_plate: result.rows[0].number_plate,
+                           capacity: result.rows[0].capacity
+                        }
                     });
                 });
             });

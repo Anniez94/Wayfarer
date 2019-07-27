@@ -3,8 +3,8 @@ let decoded;
 
 // Register Booking
 exports.postBooking = (req, res, next) => {
-    let { trip_id, user_id, created_on } = req.body
-    if (!trip_id || !user_id || !created_on)
+    let { trip_id, user_id, booking_date } = req.body
+    if (!trip_id || !user_id || !booking_date)
         return res.status(400).json({
             status: 400,
             data: [{
@@ -14,7 +14,7 @@ exports.postBooking = (req, res, next) => {
         });
     if (user_id !== req.userData.data.userId)
         return res.status("400").json({
-            status: 400,
+            status: "failed",
             data: [{
                 error: "Bad request",
                 message: "Wrong userId"
@@ -29,18 +29,26 @@ exports.postBooking = (req, res, next) => {
         const booking = [
             trip_id,
             user_id,
-            created_on
+            booking_date
         ]
-        client.query("INSERT INTO booking(trip_id, user_id, created_on) VALUES($1, $2, $3)", booking, (error, result) => {
+        client.query("INSERT INTO booking(trip_id, user_id, booking_date) VALUES($1, $2, $3) RETURNING *", booking, (error, result) => {
             if (error)
                 return res.status(400).json({
-                    status: false,
+                    status: error,
                     data: 'there are some error with query',
                 });
-            res.json({
-                status: "success",
-                data: "Booking registered"
-            });
+                res.status(200).json({
+                    status: "success",
+                    data: {
+                       message: "Booking registered" ,
+                        id: result.rows[0].id,
+                       user_id: result.rows[0].user_id,
+                       trip_id: result.rows[0].trip_id,
+                       booking_date: result.rows[0].booking_date,
+                       created_on: result.rows[0].created_on
+                    }
+             });
+            
         });
     });
 };

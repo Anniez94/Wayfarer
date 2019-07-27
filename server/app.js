@@ -31,18 +31,18 @@ app.use("/api/bus", busRoute);
 app.get('/', (req, res) => {
     res.status(200).json(
       {
-        data: [{
+        data: {
           message: 'Welcome to WayFare API Home Route',
-        }],
-      },
+        },
+      }
     );
   });
 
 //  Handle invalid route 
 app.use('*', (req, res) => {
         res.status(404).json({
-          status: 404,
-          error: 'Wrong request. Route does not exist',
+          status: 'Wrong request',
+          error:  'Route does not exist',
         });
 });
 

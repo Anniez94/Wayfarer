@@ -33,7 +33,7 @@ exports.postTrip = (req, res, next) => {
             });
         if (result.rows[0].is_admin === true) {
             const { bus_id, origin, destination, trip_date, fare, status } = req.body
-            if (!bus_id || !origin || !destination || !trip_date || !fare || !status)
+            if (!bus_id || !origin || !destination || !trip_date || !fare)
                 return res.status(400).json({
                     status: 400,
                     data: [{

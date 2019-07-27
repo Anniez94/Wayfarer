@@ -14,8 +14,8 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
           ) VALUES
           ('Chiedu', 'Ken', 'anne94@gmail.com','12345678', true);
 
-    DROP TABLE IF EXISTS bus CASCADE;
-        CREATE TABLE bus(
+    DROP TABLE IF EXISTS buses CASCADE;
+        CREATE TABLE buses(
           id serial PRIMARY KEY,
           number_plate VARCHAR NOT NULL,
           manufacturer VARCHAR NOT NULL,
@@ -29,6 +29,7 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
           id serial PRIMARY KEY,
           trip_id INT NOT NULL,
           user_id INT NOT NULL,
+          booking_date DATE NOT NULL,
           created_on TIMESTAMP DEFAULT Now(), 
           FOREIGN KEY (trip_id) REFERENCES trip(id) ON DELETE CASCADE,
           FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -37,8 +38,7 @@ pool.query(`DROP TABLE IF EXISTS users CASCADE;
     DROP TABLE IF EXISTS trip CASCADE;
     DROP TYPE IF EXISTS status_code CASCADE;
     CREATE TYPE status_code AS ENUM ('active','cancelled');
-        CREATE TABLE IF NOT EXISTS
-        trip(
+        CREATE TABLE trip(
           id serial PRIMARY KEY,
           origin VARCHAR NOT NULL,
           destination VARCHAR NOT NULL,

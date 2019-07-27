@@ -33,6 +33,8 @@ https://wayfarer-booking-chiedu.herokuapp.com/api-doc/
 <th>FUNCTIONALITY</th>
 </tr>
 </thead>
+<tbody>
+
 <tr>
 <td>POST</td>
 <td>/api/user/signup</td>
@@ -99,7 +101,7 @@ https://wayfarer-booking-chiedu.herokuapp.com/api-doc/
 <td>Delete a booking</td>
 </tr>
 
-<tbody>
+
 </tbody>
 
 </table>

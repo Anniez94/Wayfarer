@@ -1,48 +1,35 @@
 import chai from 'chai';
 import chaiHttp from "chai-http";
-import { Pool } from 'pg';
-import dotenv from 'dotenv'
 import app from '../app';
 
 // chai middleware
 chai.use(chaiHttp);
-dotenv.config();
 
 const { expect } = chai;
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'wayfarer',
-    password: process.env.TEST,
-    port: 5432
-});
 
 const signupUrl = '/api/user/signup';
 const signinUrl = '/api/auth/signin';
 
-describe('USER', () => {
-    before(function(done){
-      this.timeout(10000)
-      const users = pool.query(`TRUNCATE users CASCADE`);
-      done()
-  });
+const user = {
+  first_name: "chichi",
+  last_name: "kin",
+  email: "chik@test.com",
+  password: "12345678",
+  confirmPassword: "12345678"
+};
 
-    it(`it should register a user`, (done) => {
+describe('USER', () => {
+    it(`should register a new user`, (done) => {
       chai.request(app)
         .post(signupUrl)
-        .set('Content-Type', 'application/json')
-        .send({
-          email: 'chiedu@gmail.com',
-          first_name: 'Chiedu',
-          last_name: 'Mokwunye',
-          password: '123456',
-        })
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
+        .send(user)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.data).to.be.an('object');
           expect(res.body).to.have.property('data');
+          expect(res.body).to.have.property('status');
           done();
-        }).catch(err => done(err));
+        });
     });
 
     it('it should not register a user with empty fields', (done) => {
@@ -54,32 +41,28 @@ describe('USER', () => {
           last_name: '',
           password: '123456',
         })
-        .then(res => {
-          expect(res).to.have.status(400);
+        .end((err,res) => {
+          expect(res.body.status).to.equal(400);
           expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('status');
           expect(res.body).to.have.property('error');
-          expect(res.body).to.have.property('message');
           done();
-        }).catch(err => done(err));
+        });
     });
 
     it('it should not register a user with same email twice', (done) => {
       chai.request(app)
         .post(signupUrl)
         .set('Content-Type', 'application/json')
-        .send({
-          email: 'chiedu@gmail.com', // email already exist
-          first_name: 'Chiedu',
-          last_name: 'Mokwunye',
-          password: '123456',
-        })
-        .then(res => {
-          expect(res).to.have.status(400);
+        .set('Authorization', 'application/json')
+        .send(user)
+        .end((err,res) => {
+          expect(res.status).to.equal(400);
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('error');
           expect(res.body).to.have.property('message');
           done();
-        }).catch(err => done(err));
+        });
     });   
 });
 
@@ -89,30 +72,45 @@ describe('POST SIGN IN', () => {
       .post(signinUrl)
       .set('Content-Type', 'application/json')
       .send({
-        email: 'anne@gmail.com',
-        password: '1234567',
+        email: 'chik@test.com',
+        password: '12345678',
       })
-      .then(res => {
+      .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('data');
         expect(res.body).to.have.property('status');
         done()
-      }).catch(err => done(err));
+      });
   });
 
-  it('it should not login a user with invalid email and password', (done) => {
+  it('it should not login a user with invalid email', (done) => {
     chai.request(app)
       .post(signinUrl)
       .send({
         email: 'anne8778@gmail.com',
         password: '1234567',
       })
-      .then(res => {
-        expect(res).to.have.status(200);
-        expect(res.body.data).to.be.an('array');
+      .end((err,res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.data).to.be.an('object');
         expect(res.body).to.have.property('data');
-        done()
-      }).catch(err => done(err));
+        done();
+      });
+  });
+
+  it('it should not login a user with invalid  password', (done) => {
+    chai.request(app)
+      .post(signinUrl)
+      .send({
+        email: 'chik@test.com',
+        password: '123456',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.data).to.be.an('object');
+        expect(res.body.data).to.have.property('message');
+        done();
+      });
   });
 
   it('it should not login a user with empty fields', (done) => {
@@ -122,13 +120,14 @@ describe('POST SIGN IN', () => {
         email: '',
         password: '',
       })
-      .then(res => {
+      .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
-        expect(res.body).to.have.property('error');
-        expect(res.body).to.have.property('msg');
+        expect(res.body.data).to.have.property('error');
+        expect(res.body.data).to.have.property('message');
         done();
-      }).catch(err => done(err));
+      });
   })  
 
 });
+
